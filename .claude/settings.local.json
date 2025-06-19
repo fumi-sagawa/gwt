@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv:*)",
+      "Bash(bash:*)",
+      "Bash(ls:*)",
+      "Bash(true)",
+      "Bash(cp:*)",
+      "Bash(source:*)",
+      "Bash(gwt cd:*)",
+      "Bash(zsh:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(gwt help:*)",
+      "Bash(rm:*)",
+      "WebFetch(domain:github.com)"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,39 @@
+# Worktrees
+.worktrees/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Test coverage
+coverage/
+*.lcov
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+*.cache
