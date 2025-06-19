@@ -12,7 +12,7 @@
       ]
     }
   },
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y fzf",
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y fzf && curl -fsSL https://raw.githubusercontent.com/fumi-sagawa/gwt/main/src/install-lib.sh | bash",
   "remoteUser": "vscode",
   "mounts": [
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",

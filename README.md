@@ -161,6 +161,39 @@ source ~/.bashrc  # bashの場合
 - `.worktrees`ディレクトリの作成
 - `.gitignore`への`.worktrees/`の追加（まだ追加されていない場合）
 
+### 方法4: Dev Containerでの使用
+
+開発環境でDev Containerを使用している場合、以下の方法でgwtを自動インストールできます：
+
+#### GitHubから直接インストール（推奨）
+
+`devcontainer.json`に以下を追加：
+
+```json
+"postCreateCommand": "curl -fsSL https://raw.githubusercontent.com/fumi-sagawa/gwt/main/src/install-lib.sh | bash"
+```
+
+#### Dockerfileでインストール
+
+カスタムDockerfileを使用する場合：
+
+```dockerfile
+RUN git clone https://github.com/fumi-sagawa/gwt.git /tmp/gwt && \
+    /tmp/gwt/src/install-lib.sh && \
+    rm -rf /tmp/gwt
+```
+
+#### dotfilesリポジトリ経由
+
+dotfilesリポジトリを持っている場合：
+
+```json
+"dotfiles": {
+  "repository": "yourusername/dotfiles",
+  "installCommand": "install.sh"
+}
+```
+
 ### アンインストール
 
 ```bash

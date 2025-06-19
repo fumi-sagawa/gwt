@@ -159,6 +159,39 @@ That's it! Installation is complete.
 - Creates the `.worktrees` directory
 - Adds `.worktrees/` to `.gitignore` (if not already present)
 
+### Method 4: Using in Dev Containers
+
+When using Dev Containers in your development environment, you can automatically install gwt:
+
+#### Direct Installation from GitHub (Recommended)
+
+Add to your `devcontainer.json`:
+
+```json
+"postCreateCommand": "curl -fsSL https://raw.githubusercontent.com/fumi-sagawa/gwt/main/src/install-lib.sh | bash"
+```
+
+#### Installation via Dockerfile
+
+When using a custom Dockerfile:
+
+```dockerfile
+RUN git clone https://github.com/fumi-sagawa/gwt.git /tmp/gwt && \
+    /tmp/gwt/src/install-lib.sh && \
+    rm -rf /tmp/gwt
+```
+
+#### Via dotfiles Repository
+
+If you have a dotfiles repository:
+
+```json
+"dotfiles": {
+  "repository": "yourusername/dotfiles",
+  "installCommand": "install.sh"
+}
+```
+
 ### Uninstallation
 
 ```bash
