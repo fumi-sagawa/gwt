@@ -310,8 +310,41 @@ gwt() {
             if [[ -n $selected ]]; then
                 echo "🗑️  Removing worktree: $selected"
                 local worktree_path=$(_gwt_worktree_path "$root_dir" "$selected")
+                
+                # Get the branch name before removing worktree
+                local branch_name=$(git -C "$worktree_path" branch --show-current 2>/dev/null)
+                
                 if git worktree remove "$worktree_path"; then
                     echo "✅ Successfully removed worktree: $selected"
+                    
+                    # Ask if user wants to delete the branch
+                    echo ""
+                    echo "🌿 Branch '$branch_name' still exists."
+                    echo -n "Do you want to delete the branch? [y/N]: "
+                    read -r response
+                    
+                    if [[ "$response" =~ ^[Yy]$ ]]; then
+                        # Check if branch has unmerged changes
+                        if git branch -d "$branch_name" 2>/dev/null; then
+                            echo "✅ Successfully deleted branch: $branch_name"
+                        else
+                            echo "⚠️  Branch '$branch_name' has unmerged changes."
+                            echo -n "Force delete? [y/N]: "
+                            read -r force_response
+                            
+                            if [[ "$force_response" =~ ^[Yy]$ ]]; then
+                                if git branch -D "$branch_name"; then
+                                    echo "✅ Successfully force deleted branch: $branch_name"
+                                else
+                                    _gwt_error "Failed to delete branch: $branch_name"
+                                fi
+                            else
+                                echo "ℹ️  Branch '$branch_name' was kept."
+                            fi
+                        fi
+                    else
+                        echo "ℹ️  Branch '$branch_name' was kept."
+                    fi
                 else
                     _gwt_error "Failed to remove worktree: $selected" \
                         "\nThe worktree might have uncommitted changes.\nTo force remove: git worktree remove --force $worktree_path"
